@@ -1,0 +1,27 @@
+.unordered-list{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    background-color: darkgray;
+    margin-top: 50px;
+}
+
+.unordered-list li{
+width: 1000px;
+display: flex;
+justify-content: space-between;
+border: 1px solid black;
+}
+
+.main-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#list{
+    margin-top: 40px;
+}
+

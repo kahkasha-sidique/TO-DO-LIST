@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
 import './table.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { userCreate, userUpdate } from "./Redux/Action";
 
 function Table() {
     const [Data, setData] = useState({ name: ''})
     const [newData, setNewData] = useState([])
     const [buttonType, setButtonType] = useState("submit")
     const [currentIndex, setCurrentIndex] = useState()
+    const dispatch = useDispatch();
+    const selector=useSelector(state=>state.task)
+
+    console.log(selector,'selector')
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -17,16 +23,16 @@ function Table() {
         e.preventDefault();
 
         if (buttonType == "update") {
-            const updateData = [...newData]
-            updateData[currentIndex] = Data
-            setNewData(updateData)
+            dispatch(userUpdate({name:Data.name},currentIndex))
             setButtonType("submit")
-            setCurrentIndex(null)
             setData({ name: ''})
         }
         else {
-            setNewData([...newData, Data])
+            //setNewData([...newData, Data])
             setData({ name: ''})
+            dispatch(userCreate({name:Data.name}))
+            console.log(Data,"dispatch")
+    
         }
     }
 
@@ -56,7 +62,7 @@ function Table() {
             </form>
             <h1 className="text-info" id="list">list</h1>
             <ul className="unordered-list "  style={{listStyleType:"none"}}>
-                {newData.map((row, index) => (
+                {selector?.map((row, index) => (
                    <li key={index}>
                         {row.name}
                         <div>
